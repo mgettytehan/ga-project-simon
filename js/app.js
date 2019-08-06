@@ -1,16 +1,26 @@
-let currentScore = 0;
-
-let gameButtons = {
-    topLeft: {
-
+let gameButtons = [
+    {
+        class: "top-left",
+        sound: ""
     },
-    topRight: {
-
+    {
+        class: "top-right",
+        sound: ""
     },
-    bottomLeft: {
-
+    {
+        class: "bottom-right",
+        sound: ""
     },
-    bottomRight: {
-        
+    {
+        class: "bottom-left",
+        sound: ""
     }
+];
+
+let currentScore = 0;
+let simonSequence = [];
+let playerSequence = [];
+
+function newSequenceLight() {
+    return Math.floor(Math.random() * 4);
 }
