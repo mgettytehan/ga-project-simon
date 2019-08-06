@@ -1,4 +1,4 @@
-let gameButtons = [
+const gameButtons = [
     {
         class: "top-left",
         sound: ""
@@ -18,9 +18,17 @@ let gameButtons = [
 ];
 
 let currentScore = 0;
-let simonSequence = [];
-let playerSequence = [];
+const simonSequence = [];
+const playerSequence = [];
 
-function newSequenceLight() {
-    return Math.floor(Math.random() * 4);
+function newSeqLight() {
+    return (Math.floor(Math.random() * 4));
+}
+
+function addToSimonSeq() {
+    simonSequence.push(newSeqLight());
+}
+
+function displaySimonSeq() {
+    console.log(simonSequence);
 }
