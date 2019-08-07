@@ -42,6 +42,7 @@ function getPlayerLight() {
 }
 
 function compareLight(buttonNo) {
+    console.log(buttonNo);
     if (getPlayerLight() !== buttonNo) {
         return false;
     }
@@ -50,7 +51,7 @@ function compareLight(buttonNo) {
 
 function updateScore() {
     currentScore = simonSequence.length;
-    console.log(currentScore);
+    console.log('Score: ' + currentScore);
 }
 
 function playerTurn() {
@@ -65,8 +66,13 @@ function playerTurn() {
 
 function playGame() {
     let playing = true;
-    while(playing) {
+    do {
         simonTurn();
         playing = playerTurn();
-    }
+    } while(playing);
+}
+
+function startGame() {
+    playGame();
+    console.log('lost');
 }
