@@ -38,18 +38,21 @@ function simonTurn() {
 }
 //placeholder for console testing
 function getPlayerLight() {
-    return readline();
+    return 0;
 }
 
 function compareLight(buttonNo) {
     if (getPlayerLight() !== buttonNo) {
-        
+        return false;
     }
+    return true;
 }
 
 function playerTurn() {
     for(let i = 0; i < simonSequence.length; i++) {
-        compareLight(simonSequence[i]);
+        if(!compareLight(simonSequence[i])) {
+            return false;
+        }
     }
-
+    return true;
 }
