@@ -48,11 +48,25 @@ function compareLight(buttonNo) {
     return true;
 }
 
+function updateScore() {
+    currentScore = simonSequence.length;
+    console.log(currentScore);
+}
+
 function playerTurn() {
     for(let i = 0; i < simonSequence.length; i++) {
         if(!compareLight(simonSequence[i])) {
             return false;
         }
     }
+    updateScore();
     return true;
+}
+
+function playGame() {
+    let playing = true;
+    while(playing) {
+        simonTurn();
+        playing = playerTurn();
+    }
 }
