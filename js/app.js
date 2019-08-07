@@ -23,30 +23,43 @@ let simonSequence = [];
 //tracks index of Simon's sequence to compare player's latest input to
 let playerIndex = 0;
 
+function addStartListener() {
+    $(document).on('keydown', function(evnt) {
+        //tests for enter key
+        if (evnt.which === 13) {
+            startGame();
+        }
+    });
+}
+
 //placeholder for console testing
 function gameOver() {
     console.log('lost');
+    addStartListener();
+}
+
+function displayScore() {
+    console.log('Score: ' + currentScore);
 }
 
 function updateScore() {
     currentScore = simonSequence.length;
-    console.log('Score: ' + currentScore);
 }
 
-function removeButtonListeners() {
+function removeAllListeners() {
     $(document).off();
 }
 
 function compareLight(playerLight) {
     console.log(playerLight);
     if (playerLight !== simonSequence[playerIndex]) {
-        removeButtonListeners();
+        removeAllListeners();
         gameOver();
         return;
     }
     playerIndex++;
     if (playerIndex >= simonSequence.length) {
-        removeButtonListeners();
+        removeAllListeners();
         updateScore();
         playRound();
     }
@@ -109,8 +122,9 @@ function playRound() {
 }
 
 function startGame() {
+    removeAllListeners();
     simonSequence.length = 0;
     playRound();
 }
 
-$(document).ready(startGame);
+$(document).ready(addStartListener);
