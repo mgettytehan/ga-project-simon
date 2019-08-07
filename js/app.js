@@ -19,7 +19,7 @@ const gameButtons = [
 //track current player score
 let currentScore = 0;
 //store Simon's sequence of buttons
-const simonSequence = [];
+let simonSequence = [];
 //tracks index of Simon's sequence to compare player's latest input to
 let playerIndex = 0;
 
@@ -28,33 +28,26 @@ function gameOver() {
     console.log('lost');
 }
 
-//placeholder for console testing
-function displaySimonSeq() {
-    console.log(simonSequence);
+function updateScore() {
+    currentScore = simonSequence.length;
+    console.log('Score: ' + currentScore);
 }
 
-//generates number of button to press
-function newSeqLight() {
-    return (Math.floor(Math.random() * 4));
-}
-
-function addToSimonSeq() {
-    simonSequence.push(newSeqLight());
-}
-
-function simonTurn() {
-    addToSimonSeq();
-    displaySimonSeq();
+function removeButtonListeners() {
+    $(document).off();
 }
 
 function compareLight(playerLight) {
     console.log(playerLight);
     if (playerLight !== simonSequence[playerIndex]) {
+        removeButtonListeners();
         gameOver();
         return;
     }
     playerIndex++;
     if (playerIndex >= simonSequence.length) {
+        removeButtonListeners();
+        updateScore();
         playRound();
     }
 }
@@ -85,13 +78,27 @@ function addButtonListeners() {
     });
 }
 
-function updateScore() {
-    currentScore = simonSequence.length;
-    console.log('Score: ' + currentScore);
-}
-
 function startPlayerTurn() {
     addButtonListeners();
+}
+
+//placeholder for console testing
+function displaySimonSeq() {
+    console.log(simonSequence);
+}
+
+//generates number of button to press
+function newSeqLight() {
+    return (Math.floor(Math.random() * 4));
+}
+
+function addToSimonSeq() {
+    simonSequence.push(newSeqLight());
+}
+
+function simonTurn() {
+    addToSimonSeq();
+    displaySimonSeq();
 }
 
 function playRound() {
@@ -102,6 +109,7 @@ function playRound() {
 }
 
 function startGame() {
+    simonSequence.length = 0;
     playRound();
 }
 
