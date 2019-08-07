@@ -97,9 +97,6 @@ function addButtonListeners() {
 function startPlayerTurn() {
     addButtonListeners();
 }
-function hideLight(buttonClass) {
-    $(`.${buttonClass}`).removeClass('flash');
-}
 
 //return true if light is on, false if off
 function toggleLight(buttonClass) {
