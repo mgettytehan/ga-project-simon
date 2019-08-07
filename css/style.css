@@ -1,0 +1,23 @@
+.game-board {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+}
+.game-button {
+    min-height: 100px;
+}
+.top-left {
+    background-color: hotpink;
+}
+.top-right {
+    background-color: aqua;
+}
+.bottom-left {
+    background-color: gold;
+}
+.bottom-right {
+    background-color: lime;
+}
+.flash {
+    background-color: red;
+}

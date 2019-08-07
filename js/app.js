@@ -1,18 +1,18 @@
 const gameButtons = [
     {
-        class: "top-left",
+        cssClass: "top-left",
         sound: ""
     },
     {
-        class: "top-right",
+        cssClass: "top-right",
         sound: ""
     },
     {
-        class: "bottom-right",
+        cssClass: "bottom-right",
         sound: ""
     },
     {
-        class: "bottom-left",
+        cssClass: "bottom-left",
         sound: ""
     }
 ];
@@ -22,6 +22,9 @@ let currentScore = 0;
 let simonSequence = [];
 //tracks index of Simon's sequence to compare player's latest input to
 let playerIndex = 0;
+//for 
+//storage for clearing interval
+let simonInterval;
 
 function addStartListener() {
     $(document).on('keydown', function(evnt) {
@@ -94,10 +97,39 @@ function addButtonListeners() {
 function startPlayerTurn() {
     addButtonListeners();
 }
+function hideLight(buttonClass) {
+    $(`.${buttonClass}`).removeClass('flash');
+}
+
+//return true if light is on, false if off
+function toggleLight(buttonClass) {
+    //add flash class or remove after delay
+    let button = $(`.${buttonClass}`);
+    if (button.hasClass('flash')) {
+        $(`.${buttonClass}`).removeClass('flash');
+        return false;
+    } else {
+        $(`.${buttonClass}`).addClass('flash');
+        return true;
+    }
+}
+
+function showSimonLight() {
+    //when light turns off again, move on to next light
+    if (!toggleLight(gameButtons[simonSequence[simonIndex]].cssClass)) {
+        simonIndex++;
+    }
+    if (simonIndex >= simonSequence.length) {
+        clearInterval(simonInterval);
+        startPlayerTurn();
+    }
+}
 
 //placeholder for console testing
 function displaySimonSeq() {
-    console.log(simonSequence);
+    simonInterval = setInterval( function() {
+        showSimonLight();
+    },1000)
 }
 
 //generates number of button to press
@@ -115,10 +147,10 @@ function simonTurn() {
 }
 
 function playRound() {
-    //reset playerIndex for the new round
+    //reset indexes for the new round
+    simonIndex = 0;
     playerIndex = 0;
     simonTurn();
-    startPlayerTurn();
 }
 
 function startGame() {
