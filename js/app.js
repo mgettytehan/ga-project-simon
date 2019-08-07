@@ -19,7 +19,6 @@ const gameButtons = [
 
 let currentScore = 0;
 const simonSequence = [];
-const playerSequence = [];
 
 function newSeqLight() {
     return (Math.floor(Math.random() * 4));
@@ -28,7 +27,29 @@ function newSeqLight() {
 function addToSimonSeq() {
     simonSequence.push(newSeqLight());
 }
-
+//placeholder for console testing
 function displaySimonSeq() {
     console.log(simonSequence);
+}
+
+function simonTurn() {
+    addToSimonSeq();
+    displaySimonSeq();
+}
+//placeholder for console testing
+function getPlayerLight() {
+    return readline();
+}
+
+function compareLight(buttonNo) {
+    if (getPlayerLight() !== buttonNo) {
+        
+    }
+}
+
+function playerTurn() {
+    for(let i = 0; i < simonSequence.length; i++) {
+        compareLight(simonSequence[i]);
+    }
+
 }
