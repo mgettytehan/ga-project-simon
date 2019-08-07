@@ -16,9 +16,12 @@ const gameButtons = [
         sound: ""
     }
 ];
-
+//track current player score
 let currentScore = 0;
+//store Simon's sequence of buttons
 const simonSequence = [];
+//tracks index of Simon's sequence to compare player's latest input to
+let playerIndex = 0;
 
 //placeholder for console testing
 function displaySimonSeq() {
@@ -39,10 +42,6 @@ function simonTurn() {
     addToSimonSeq();
     displaySimonSeq();
 }
-//placeholder for console testing
-function getPlayerLight() {
-    return 0;
-}
 
 function compareLight(buttonNo) {
     console.log(buttonNo);
@@ -52,58 +51,25 @@ function compareLight(buttonNo) {
     return true;
 }
 
-function updateScore() {
-    currentScore = simonSequence.length;
-    console.log('Score: ' + currentScore);
-}
-
-function playerTurn() {
-    for(let i = 0; i < simonSequence.length; i++) {
-        if(!compareLight(simonSequence[i])) {
-            return false;
-        }
-    }
-    updateScore();
-    return true;
-}
-
-function playGame() {
-    let playing = true;
-    do {
-        simonTurn();
-        playing = playerTurn();
-    } while(playing);
-}
-
-function startGame() {
-    playGame();
-    console.log('lost');
-}
-
-//placeholder for testing
-function playerLight(button) {
-    console.log('button: '+ button);
-}
-
 function addButtonListeners() {
     $(document).on('keydown', function(evnt) {
         let keyPressed = evnt.which;
         switch (keyPressed) {
             //q key
             case 81:
-                playerLight(0);
+                compareLight(0);
                 break;
             //w key
             case 87:
-                playerLight(1);
+                compareLight(1);
                 break;
             // s key
             case 83:
-                playerLight(2);
+                compareLight(2);
                 break;
             //a key
             case 65:
-                playerLight(3);
+                compareLight(3);
                 break;
             default:
                 break;
@@ -111,6 +77,31 @@ function addButtonListeners() {
     });
 }
 
-$(document).ready(function() {
+function updateScore() {
+    currentScore = simonSequence.length;
+    console.log('Score: ' + currentScore);
+}
+
+function startPlayerTurn() {
     addButtonListeners();
-})
+    // for(let i = 0; i < simonSequence.length; i++) {
+    //     if(!compareLight(simonSequence[i])) {
+    //         return false;
+    //     }
+    // }
+    // updateScore();
+    // return true;
+}
+
+function playGame() {
+    let playing = true;
+    do {
+        simonTurn();
+        playing = startPlayerTurn();
+    } while(playing);
+}
+
+function startGame() {
+    playGame();
+    console.log('lost');
+}
