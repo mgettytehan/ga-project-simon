@@ -19,7 +19,7 @@ const gameButtons = [
 
 let currentScore = 0;
 const simonSequence = [];
-
+//generates number of button to press
 function newSeqLight() {
     return (Math.floor(Math.random() * 4));
 }
