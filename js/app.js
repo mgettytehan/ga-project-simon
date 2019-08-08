@@ -56,17 +56,11 @@ function removeAllListeners() {
     $(document).off();
 }
 
-//return true if light is on, false if off
-function toggleLight(buttonClass) {
-    //add flash class or remove after delay
-    let button = $(`.${buttonClass}`);
-    if (button.hasClass('flash')) {
-        $(`.${buttonClass}`).removeClass('flash');
-        return false;
-    } else {
-        $(`.${buttonClass}`).addClass('flash');
-        return true;
-    }
+//turn on flash class, wait, turn off
+async function flashLight(buttonClass, timeMs) {
+    $(`.${buttonClass}`).addClass('flash');
+    await timeout(timeMs);
+    $(`.${buttonClass}`).removeClass('flash');
 }
 
 function compareLight(playerLight) {
@@ -91,9 +85,8 @@ function clearLights() {
 async function playerLight(lightIndex) {
     clearLights();
     await timeout(100);
-    toggleLight(gameButtons[simonSequence[playerIndex]].cssClass);
-    await timeout(500);
-    toggleLight(gameButtons[simonSequence[playerIndex]].cssClass);
+    flashLight(gameButtons[lightIndex].cssClass, 500);
+    await timeout(1000);
     compareLight(lightIndex);
 }
 
@@ -127,22 +120,18 @@ function startPlayerTurn() {
     addButtonListeners();
 }
 
-function showSimonLight() {
-    //when light turns off again, move on to next light
-    if (!toggleLight(gameButtons[simonSequence[simonIndex]].cssClass)) {
-        simonIndex++;
-    }
-    if (simonIndex >= simonSequence.length) {
-        clearInterval(simonInterval);
-        startPlayerTurn();
-    }
-}
+// function showSimonLight(light) {
+//     flashLight(gameButtons[light].cssClass);
+// }
 
 //placeholder for console testing
-function displaySimonSeq() {
-    simonInterval = setInterval( function() {
-        showSimonLight();
-    },1000);
+async function displaySimonSeq() {
+    await timeout(500);
+    for (let simonLight of simonSequence) {
+        flashLight(gameButtons[simonLight].cssClass, 500);
+        await timeout(1000);
+    }
+    startPlayerTurn();
 }
 
 //generates number of button to press
@@ -167,6 +156,7 @@ function playRound() {
 }
 
 function startGame() {
+    console.log('Playing game');
     removeAllListeners();
     simonSequence.length = 0;
     playRound();
