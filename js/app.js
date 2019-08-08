@@ -22,7 +22,6 @@ let currentScore = 0;
 let simonSequence = [];
 //tracks index of Simon's sequence to compare player's latest input to
 let playerIndex = 0;
-//for 
 //storage for clearing interval
 let simonInterval;
 
@@ -85,10 +84,15 @@ function compareLight(playerLight) {
     }
 }
 
+function clearLights() {
+    $('.flash').removeClass('flash');
+}
+
 async function playerLight(lightIndex) {
-    await timeout(500);
+    clearLights();
+    await timeout(100);
     toggleLight(gameButtons[simonSequence[playerIndex]].cssClass);
-    await timeout(1000);
+    await timeout(500);
     toggleLight(gameButtons[simonSequence[playerIndex]].cssClass);
     compareLight(lightIndex);
 }
