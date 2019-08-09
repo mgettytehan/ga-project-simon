@@ -1,3 +1,64 @@
+//
+//high scores
+//
+//preloaded fake high scores
+const preLoadedScores = [
+    {
+        name: 'CHAMP',
+        score: 40
+    },
+    {
+        name: '',
+        score: 30
+    },
+    {
+        name: '',
+        score: 20
+    },
+    {
+        name: 'YUKI',
+        score: 10
+    },
+    {
+        name: 'YUMI',
+        score: 5
+    }
+];
+let highScores;
+
+//load high scores from template or localStorage when page loads
+function loadHighScores() {
+    if (localStorage.highScores) {
+        highScores = JSON.parse(localStorage.highScores);
+    } else {
+        highScores = preLoadedScores;
+    }
+}
+
+//use to save into localStorage when changes are made
+function saveHighScores() {
+    localStorage.highScores = JSON.stringify(highScores);
+}
+
+function checkScore(playerScore) {
+    return playerScore > highScores[highScores.length - 1].score ? true : false;
+}
+
+function addScore(name) {
+    highScores.pop();
+    newScore = {};
+    newScore.name = name;
+    newScore.score = currentScore;
+    highScores.push(newScore);
+}
+
+function showNameScreen() {
+    $('.player-name').removeClass('hidden');
+}
+
+//
+//game functionality
+//
 const gameButtons = [
     {
         cssClass: "top-left",
@@ -22,8 +83,6 @@ let currentScore = 0;
 let simonSequence = [];
 //tracks index of Simon's sequence to compare player's latest input to
 let playerIndex = 0;
-//storage for clearing interval
-let simonInterval;
 
 function timeout(timeMs) {
     return new Promise(resolve => setTimeout(resolve,timeMs));
@@ -41,11 +100,15 @@ function addStartListener() {
 //placeholder for console testing
 function gameOver() {
     console.log('lost');
+    //check for new high score
+    if (checkScore(currentScore)) {
+        showNameScreen();
+    }
     addStartListener();
 }
 
 function displayScore() {
-    console.log('Score: ' + currentScore);
+    $('#score-number').text(currentScore);
 }
 
 function updateScore() {
@@ -74,6 +137,7 @@ function compareLight(playerLight) {
     if (playerIndex >= simonSequence.length) {
         removeAllListeners();
         updateScore();
+        displayScore();
         playRound();
     }
 }
@@ -120,10 +184,6 @@ function startPlayerTurn() {
     addButtonListeners();
 }
 
-// function showSimonLight(light) {
-//     flashLight(gameButtons[light].cssClass);
-// }
-
 //placeholder for console testing
 async function displaySimonSeq() {
     await timeout(500);
@@ -162,4 +222,57 @@ function startGame() {
     playRound();
 }
 
-$(document).ready(addStartListener);
+//
+//construct modals for page
+//
+function createModal(divClass) {
+    return $(`<div class="modal ${divClass}"></div>`).append('<div class="modal-inner"></div>').append('<div class="button-container"></div>').append('<button class="close">Close</button>').on('click', function() {
+        $(this).parents('.modal').addClass('hidden');
+    });
+}
+//create all modals for page, all come out hidden
+function constructModals() {
+    $('body').append(
+        createModal('player-name').append(
+        $('<h2>High Score!</h2>'),
+        $('<p>You got a high score! Please enter your name below (1-6 characters).</p>'),
+        $('<div></div>').append(
+            $('<div class="warning-text"></div>'),
+            $('<input type="text" class="name-field" maxlength="6"></input>'),
+            $('<button>Submit</button>').on('click', function () {
+                let playerName = $(this).siblings('.name-field').value();
+                if(playerName.length >= 1 && playerName.length <= 6){
+                    addScore(playerName.toUpperCase());
+                    $(this).parents('.modal').addClass('hidden');
+                } else {
+                    $(this).siblings('.warning-text').text('Please enter 1-6 characters!');
+                }
+            })
+        )),
+        createModal('instructions').append(
+            $('<h2>Instructions</h2>'),
+            $('<p>Press Enter to start a new game.</p>'),
+            $('<p>Use the Q W A S keys to play.</p>'),
+            $('<p>Simon will start his turn and light up a sequence of UFOs. He will start with one UFO.</p>'),
+            $('<p>Now it\'s your turn! Press the UFOs in the same order as Simon.</p>'),
+            $('<p>Simon will add one more UFO to the sequence each turn. Try to get the highest score possible!</p>')
+        ),
+        createModal('scoreboard').append(
+            $('<h2>High Scores</h2>'),
+            $('<div class="score-container"></div>')
+        )
+    );
+    //add button listeners
+    // $('.instructions-button').on('click', function() {
+    //     $('.instructions').removeClass('hidden');
+    // });
+    // $('.score-button').on('click', function() {
+    //     $('.scoreboard').removeClass('hidden');
+    // });
+}
+
+$(document).ready(() => {
+    addStartListener();
+    loadHighScores();
+    constructModals();
+});
