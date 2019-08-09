@@ -1,23 +1,82 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|The+Girl+Next+Door&display=swap');
+
+body {
+    margin: 0 auto;
+    font-family: 'Open Sans', sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'The Girl Next Door', cursive;
+}
+main {
+    display: flex;
+    flex-direction: row;
+}
 .game-board {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 15px;
+    background-color: white;
+    margin: 0 auto;
+    grid-template-columns: 2fr 1fr 2fr;
+    grid-template-rows: 2fr 1fr 2fr;
+    height: 100vh;
+    width: 100vh;
 }
-.game-button {
+.game-button, .start-button {
     min-height: 100px;
+    text-align: center;
 }
 .top-left {
-    background-color: hotpink;
+    background-image: url('../images/ufopinkstill.gif');
+    grid-column-start: 1;
+    grid-row-start: 1;
+    margin: 0 -5vh -5vh 0;
 }
 .top-right {
-    background-color: aqua;
+    background-image: url('../images/ufobluestill.gif');
+    grid-column-start: 3;
+    grid-row-start: 1;
+    margin: 0 0 -5vh -5vh;
 }
 .bottom-left {
-    background-color: gold;
+    background-image: url('../images/ufogreenstill.gif');
+    grid-column-start: 1;
+    grid-row-start: 3;
+    margin: -5vh -5vh 0 0;
 }
 .bottom-right {
-    background-color: lime;
+    background-image: url('../images/uforangestill.gif');
+    grid-column-start: 3;
+    grid-row-start: 3;
+    margin: -5vh 0 0 -5vh;
 }
-.flash {
-    background-color: red;
+.top-left.flash {
+    background-image: url('../images/ufopinkmotion.gif');
+}
+.top-right.flash {
+    background-image: url('../images/ufobluemotion.gif');
+}
+.bottom-left.flash {
+    background-image: url('../images/ufogreenmotion.gif');
+}
+.bottom-right.flash {
+    background-image: url('../images/uforangemotion.gif');
+}
+.game-button {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.start-button {
+    background-color: white;
+    border-radius: 50%;
+    border: 3px dashed grey;
+    padding: 25%x;
+    z-index: 1;
+    grid-column-start: 2;
+    grid-row-start: 2;
+}
+.score-board {
+    text-align: center;
+    padding: 20px;
+    border: 3px dashed grey;
+    border-radius: 50%;
 }
