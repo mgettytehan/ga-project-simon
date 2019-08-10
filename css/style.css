@@ -6,10 +6,13 @@ body {
 }
 h1, h2, h3, h4, h5, h6 {
     font-family: 'The Girl Next Door', cursive;
+    text-align: center;
+    text-transform: uppercase;
 }
 main {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
 }
 button {
     font-size: 1em;
@@ -18,6 +21,18 @@ button {
     padding: 10px;
     border: 3px solid grey;
     background-color: rgba(110, 184, 185, 0.5);
+}
+input {
+    font-size: 1em;
+}
+input[type=text] {
+    font-size: 1em;
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 5px;
+    border: 3px dashed grey;
+    padding: 10px;
+    margin: 5px;
+
 }
 .game-board {
     display: grid;
@@ -105,10 +120,16 @@ button {
 }
 .button-container {
     text-align: center;
+    margin: 10px;
 }
 .score-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+    justify-content: space-evenly;
+}
+.player-name {
+    text-align: center;
 }
 .hidden {
     display: none;
