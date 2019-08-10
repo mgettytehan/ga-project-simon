@@ -10,21 +10,23 @@
     <script defer src="js/app.js"></script>
 </head>
 <body>
-    <main>
-        <div class="side">
-            <h1>UFO Simon</h1>
+    <header>
+        <h1>UFO Simon</h1>
+        <div>
             <button class="instructions-button">Instructions</button>
+            <button class="score-button">High Scores</button>
         </div>
+    </header>
+    <main>
         <div class="game-board">
             <div class="game-button top-left"></div>
             <div class="game-button top-right"></div>
             <div class="game-button bottom-left"></div>
             <div class="game-button bottom-right"></div>
-            <div class="start-button"><h2>START</h2><h3>(press enter)</h3></div>
-        </div>
-        <div class="side">
-            <div class="scoreboard-display">Score: <span id="score-number">0</span></div>
-            <button class="score-button">High Scores</button>
+            <div class="start-button">
+                <div class="start-button-text">START</br>(press enter)</div>
+                <div class="scoreboard-display">Score: <span id="score-number">?</span></div>
+            </div>
         </div>
     </main>
 </body>

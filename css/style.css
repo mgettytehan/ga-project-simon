@@ -1,18 +1,26 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|The+Girl+Next+Door&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@font-face {
+    font-family: 'Inside Outside';
+    src: url('../fonts/InsideOutside.ttf');
+}
 
 body {
     margin: 0 auto;
     font-family: 'Open Sans', sans-serif;
 }
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'The Girl Next Door', cursive;
+    font-family: 'Inside Outside', cursive;
     text-align: center;
-    text-transform: uppercase;
+    text-transform: lowercase;
 }
-main {
+header, main {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+header {
     display: flex;
-    flex-direction: row;
     justify-content: space-around;
+    align-items: center;
 }
 button {
     font-size: 1em;
@@ -83,24 +91,27 @@ input[type=text] {
 .bottom-right.flash {
     background-image: url('../images/uforangemotion.gif');
 }
-.game-button {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-}
 .start-button {
     background-color: white;
+    background-image: url('../images/startcircle.gif');
+    font-family: 'Inside Outside', cursive;
+    text-transform: lowercase;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.5em;
     border-radius: 50%;
-    border: 3px dashed grey;
-    padding: 25%x;
+    margin: -5vh;
+    padding: 25% 10%;
     z-index: 1;
     grid-column-start: 2;
     grid-row-start: 2;
 }
-.scoreboard-display {
-    text-align: center;
-    padding: 20px;
-    border: 3px dashed grey;
+.start-button, .game-button {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 .modal {
     position: fixed;
