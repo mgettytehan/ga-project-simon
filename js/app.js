@@ -8,11 +8,11 @@ const preLoadedScores = [
         score: 40
     },
     {
-        name: '',
+        name: 'BEN',
         score: 30
     },
     {
-        name: '',
+        name: 'JOJO',
         score: 20
     },
     {
@@ -50,6 +50,7 @@ function addScore(name) {
     newScore.name = name;
     newScore.score = currentScore;
     highScores.push(newScore);
+    saveHighScores();
 }
 
 function showNameScreen() {
@@ -238,11 +239,12 @@ function constructModals() {
         createModal('player-name', $('<div></div>').append(
             $('<h2>High Score!</h2>'),
             $('<p>You got a high score! Please enter your name below (1-6 characters).</p>'),
-            $('<div></div>').append(
+            $('<div class="form-fields"></div>').append(
                 $('<div class="warning-text"></div>'),
                 $('<input type="text" class="name-field" maxlength="6"></input>'),
-                $('<button>Submit</button>').on('click', function () {
-                    let playerName = $(this).siblings('.name-field').value();
+                $('<button>Submit</button>').on('click', function() {
+                    console.log($(this).parents('.form-fields').children('.name-field'));
+                    let playerName = $(this).parents('.form-fields').children('.name-field').val();
                     if(playerName.length >= 1 && playerName.length <= 6){
                         addScore(playerName.toUpperCase());
                         $(this).parents('.modal').addClass('hidden');
