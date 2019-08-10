@@ -71,19 +71,19 @@ function showNameScreen() {
 const gameButtons = [
     {
         cssClass: "top-left",
-        sound: ""
+        sound: "beam2.mp3"
     },
     {
         cssClass: "top-right",
-        sound: ""
+        sound: "beam2.mp3"
     },
     {
         cssClass: "bottom-right",
-        sound: ""
+        sound: "beam2.mp3"
     },
     {
         cssClass: "bottom-left",
-        sound: ""
+        sound: "beam2.mp3"
     }
 ];
 //track current player score
@@ -92,6 +92,8 @@ let currentScore = 0;
 let simonSequence = [];
 //tracks index of Simon's sequence to compare player's latest input to
 let playerIndex = 0;
+//standard for light flashing in ms
+const lightTimer = 600;
 
 function timeout(timeMs) {
     return new Promise(resolve => setTimeout(resolve,timeMs));
@@ -104,6 +106,10 @@ function addStartListener() {
             startGame();
         }
     });
+}
+
+function updateMiddle(content) {
+    $('.start-button-text').text(content);
 }
 
 //placeholder for console testing
@@ -130,6 +136,7 @@ function removeAllListeners() {
 
 //turn on flash class, wait, turn off
 async function flashLight(buttonClass, timeMs) {
+    $(`.${buttonClass}-audio`)[0].play();
     $(`.${buttonClass}`).addClass('flash');
     await timeout(timeMs);
     $(`.${buttonClass}`).removeClass('flash');
@@ -158,8 +165,8 @@ function clearLights() {
 async function playerLight(lightIndex) {
     clearLights();
     await timeout(100);
-    flashLight(gameButtons[lightIndex].cssClass, 500);
-    await timeout(1000);
+    flashLight(gameButtons[lightIndex].cssClass, lightTimer);
+    await timeout(lightTimer);
     compareLight(lightIndex);
 }
 
@@ -190,42 +197,42 @@ function addButtonListeners() {
 }
 
 function startPlayerTurn() {
+    updateMiddle('Your Turn');
     addButtonListeners();
 }
 
 //placeholder for console testing
 async function displaySimonSeq() {
-    await timeout(500);
+    await timeout(lightTimer);
     for (let simonLight of simonSequence) {
-        flashLight(gameButtons[simonLight].cssClass, 500);
-        await timeout(1000);
+        flashLight(gameButtons[simonLight].cssClass, lightTimer);
+        await timeout(lightTimer * 2);
     }
     startPlayerTurn();
 }
 
 //generates number of button to press
-function newSeqLight() {
+function getNewSeqLight() {
     return (Math.floor(Math.random() * 4));
 }
 
 function addToSimonSeq() {
-    simonSequence.push(newSeqLight());
+    simonSequence.push(getNewSeqLight());
 }
 
 function simonTurn() {
+    updateMiddle('Simon\'s Turn');
     addToSimonSeq();
     displaySimonSeq();
 }
 
 function playRound() {
-    //reset indexes for the new round
-    simonIndex = 0;
+    //reset player's index for new round
     playerIndex = 0;
     simonTurn();
 }
 
 function startGame() {
-    console.log('Playing game');
     removeAllListeners();
     simonSequence.length = 0;
     playRound();
@@ -241,6 +248,7 @@ function createModal(divClass, innerContent) {
         })
     ));
 }
+
 //create all modals for page, all come out hidden
 function constructModals() {
     $('body').append(
@@ -283,10 +291,16 @@ function constructModals() {
         $('.scoreboard').removeClass('hidden');
     });
 }
+function createAudio() {
+    gameButtons.forEach(gameButton => {
+        $(`<audio class="${gameButton.cssClass}-audio"></audio`).append(`<source src="audio/${gameButton.sound}" type="audio/mpeg"></source>`).appendTo('body');
+    });
+}
 
 $(document).ready(() => {
     addStartListener();
     constructModals();
     loadHighScores();
     updateHighScoreBoard();
+    createAudio();
 });
