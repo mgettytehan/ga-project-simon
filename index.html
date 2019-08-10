@@ -13,7 +13,7 @@
     <main>
         <div class="side">
             <h1>UFO Simon</h1>
-            <div>Instructions</div>
+            <button class="instructions-button">Instructions</button>
         </div>
         <div class="game-board">
             <div class="game-button top-left"></div>
@@ -24,26 +24,8 @@
         </div>
         <div class="side">
             <div class="scoreboard-display">Score: <span id="score-number">0</span></div>
-            <div class="modal-button">High Scores</div>
+            <div class="score-button">High Scores</div>
         </div>
     </main>
-    <div class="modal instructions hidden">
-        <div class="modal-inner">
-            <h2>Instructions</h2>
-            <p>Press Enter to start a new game.</p>
-            <p>Use the Q W A S keys to play.</p>
-            <p>Simon will start his turn and light up a sequence of UFOs. He will start with one UFO.</p>
-            <p>Now it's your turn! Press the UFOs in the same order as Simon.</p>
-            <p>Simon will add one more UFO to the sequence each turn. Try to get the highest score possible!</p>
-            <div class="button-container"><button class="close">Close</button></div>
-        </div>
-    </div>
-    <div class="modal scoreboard hidden">
-        <div class="modal-inner">
-            <h2>High Scores</h2>
-            <div class="high-score-container"></div>
-            <div class="button-container"><button class="close">Close</button></div>
-        </div>
-    </div>
 </body>
 </html>

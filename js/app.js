@@ -225,50 +225,53 @@ function startGame() {
 //
 //construct modals for page
 //
-function createModal(divClass) {
-    return $(`<div class="modal ${divClass}"></div>`).append('<div class="modal-inner"></div>').append('<div class="button-container"></div>').append('<button class="close">Close</button>').on('click', function() {
-        $(this).parents('.modal').addClass('hidden');
-    });
+function createModal(divClass, innerContent) {
+    return $(`<div class="modal ${divClass} hidden"></div>`).append(innerContent.addClass('modal-inner').append(
+        $('<div class="button-container"></div>').append('<button class="close">Close</button>').on('click', function() {
+            $(this).parents('.modal').addClass('hidden');
+        })
+    ));
 }
 //create all modals for page, all come out hidden
 function constructModals() {
     $('body').append(
-        createModal('player-name').append(
-        $('<h2>High Score!</h2>'),
-        $('<p>You got a high score! Please enter your name below (1-6 characters).</p>'),
-        $('<div></div>').append(
-            $('<div class="warning-text"></div>'),
-            $('<input type="text" class="name-field" maxlength="6"></input>'),
-            $('<button>Submit</button>').on('click', function () {
-                let playerName = $(this).siblings('.name-field').value();
-                if(playerName.length >= 1 && playerName.length <= 6){
-                    addScore(playerName.toUpperCase());
-                    $(this).parents('.modal').addClass('hidden');
-                } else {
-                    $(this).siblings('.warning-text').text('Please enter 1-6 characters!');
-                }
-            })
+        createModal('player-name', $('<div></div>').append(
+            $('<h2>High Score!</h2>'),
+            $('<p>You got a high score! Please enter your name below (1-6 characters).</p>'),
+            $('<div></div>').append(
+                $('<div class="warning-text"></div>'),
+                $('<input type="text" class="name-field" maxlength="6"></input>'),
+                $('<button>Submit</button>').on('click', function () {
+                    let playerName = $(this).siblings('.name-field').value();
+                    if(playerName.length >= 1 && playerName.length <= 6){
+                        addScore(playerName.toUpperCase());
+                        $(this).parents('.modal').addClass('hidden');
+                    } else {
+                        $(this).siblings('.warning-text').text('Please enter 1-6 characters!');
+                    }
+                })
+            )
         )),
-        createModal('instructions').append(
+        createModal('instructions', $('<div></div>').append(
             $('<h2>Instructions</h2>'),
             $('<p>Press Enter to start a new game.</p>'),
             $('<p>Use the Q W A S keys to play.</p>'),
             $('<p>Simon will start his turn and light up a sequence of UFOs. He will start with one UFO.</p>'),
             $('<p>Now it\'s your turn! Press the UFOs in the same order as Simon.</p>'),
             $('<p>Simon will add one more UFO to the sequence each turn. Try to get the highest score possible!</p>')
-        ),
-        createModal('scoreboard').append(
+        )),
+        createModal('scoreboard', $('<div></div>').append(
             $('<h2>High Scores</h2>'),
             $('<div class="score-container"></div>')
-        )
+        ))
     );
     //add button listeners
-    // $('.instructions-button').on('click', function() {
-    //     $('.instructions').removeClass('hidden');
-    // });
-    // $('.score-button').on('click', function() {
-    //     $('.scoreboard').removeClass('hidden');
-    // });
+    $('.instructions-button').on('click', function() {
+        $('.instructions').removeClass('hidden');
+    });
+    $('.score-button').on('click', function() {
+        $('.scoreboard').removeClass('hidden');
+    });
 }
 
 $(document).ready(() => {
