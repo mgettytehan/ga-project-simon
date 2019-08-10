@@ -44,6 +44,13 @@ function checkScore(playerScore) {
     return playerScore > highScores[highScores.length - 1].score ? true : false;
 }
 
+function updateHighScoreBoard() {
+    let scoreContainer = $('.score-container');
+    highScores.forEach(scoreObj => {
+        scoreContainer.append(`<div>${scoreObj.name}</div>`, `<div>${scoreObj.score}</div>`);
+    });
+}
+
 function addScore(name) {
     highScores.pop();
     newScore = {};
@@ -51,6 +58,7 @@ function addScore(name) {
     newScore.score = currentScore;
     highScores.push(newScore);
     saveHighScores();
+    updateHighScoreBoard();
 }
 
 function showNameScreen() {
@@ -278,6 +286,7 @@ function constructModals() {
 
 $(document).ready(() => {
     addStartListener();
-    loadHighScores();
     constructModals();
+    loadHighScores();
+    updateHighScoreBoard();
 });
