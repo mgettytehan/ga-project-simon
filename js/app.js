@@ -1,3 +1,10 @@
+//different speeds for light flash
+const speeds = {
+    slow: 1200,
+    quick: 600
+}
+//stores the time in ms for the round
+let lightTimer;
 //preloaded fake high scores
 const preLoadedScores = [
     {
@@ -21,6 +28,7 @@ const preLoadedScores = [
         score: 5
     }
 ];
+//for loading in from preloaded scores or scores in localStorage
 let highScores;
 
 const gameButtons = [
@@ -47,8 +55,6 @@ let currentScore = 0;
 let simonSequence = [];
 //tracks index of Simon's sequence to compare player's latest input to
 let playerIndex = 0;
-//standard for light flashing in ms
-const lightTimer = 600;
 //flag for whether player can initiate game
 let canStart = true;
 //flag for whether player can press game keys
@@ -201,7 +207,7 @@ async function displaySimonSeq() {
     await timeout(lightTimer);
     for (let simonLight of simonSequence) {
         flashLight(gameButtons[simonLight].cssClass, lightTimer);
-        await timeout(lightTimer * 2);
+        await timeout(lightTimer);
     }
     startPlayerTurn();
 }
@@ -230,7 +236,9 @@ function playRound() {
 async function startGame() {
     canStart = false;
     $('.start-audio')[0].play();
-    //reset the sequence for a new game
+    //reset the sequence for a new game and get speed
+    lightTimer = speeds[$('input[name=game-speed]:checked').val()]
+    console.log(lightTimer);
     simonSequence.length = 0;
     updateScore();
     await timeout(lightTimer);
@@ -303,7 +311,8 @@ function constructModals() {
         createModal('instructions', $('<div></div>').append(
             $('<h2>Instructions</h2>'),
             $('<p>Welcome to UFO Simon! The aim is to abduct the animals in the same order as Simon.</p>'),
-            $('<p>You can use your keyboard or your mouse to play the game. The Q W A S keys control the main game buttons. Press Enter or click in the middle to start a new game.</p>'),
+            $('<p>Before starting, you can pick a game speed in the top left corner.</p>'),
+            $('<p>Use your keyboard, your mouse or your touch screen to play the game. The Q W A S keys control the main game buttons. Press Enter or click in the middle to start a new game.</p>'),
             $('<p>When it\'s Simon\'s turn, Simon will move the UFOs one by one.</p>'),
             $('<p>Now it\'s your turn! Press the UFOs in the same order as Simon.</p>'),
             $('<p>Simon will add one more UFO each turn. Try to get the highest score possible!</p>'),

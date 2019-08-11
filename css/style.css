@@ -22,8 +22,12 @@ header {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    text-align: center;
 }
-button {
+header > * {
+    flex: 1 0 0;
+}
+button, .speed-controls > * {
     font-size: 1em;
     font-family: 'Open Sans', sans-serif;
     text-transform: lowercase;
@@ -44,6 +48,13 @@ input[type=text] {
     padding: 10px;
     margin: 5px;
 
+}
+input[type=radio] {
+    font-size: 1em;
+}
+.speed-controls > div {
+    display: inline-block;
+    text-align: left;
 }
 .game-board {
     display: grid;
