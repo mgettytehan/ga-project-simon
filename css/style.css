@@ -53,6 +53,8 @@ input[type=text] {
     grid-template-rows: 2fr 1fr 2fr;
     height: 100vh;
     width: 100vh;
+    min-height: 450px;
+    min-width: 450px;
 }
 .game-button, .start-button {
     min-height: 100px;
@@ -170,5 +172,23 @@ input[type=text] {
     }
     100% {
         opacity: 1;
+    }
+}
+
+@media (max-height: 630px) {
+    body {
+        font-size: 14px;
+    }
+}
+
+/* ensure gameboard is still a square entirely displayed on the screen when in portrait mode
+currently not intended for small phones, but will play on tablet */
+@media (orientation: portrait) {
+    .game-board {
+        height: 100vw;
+        width: 100vw;
+    }
+    .modal-inner {
+        margin-top: 15%;
     }
 }
