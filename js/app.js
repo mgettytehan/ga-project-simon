@@ -125,10 +125,19 @@ function timeout(timeMs) {
 }
 
 function updateMiddle(content) {
-    $('.start-button-text').html(content);
+    //old text fades out and new text fades in
+    let startButtonText = $('.start-button-text');
+    startButtonText.addClass('fade');
+    setTimeout(() => {
+        startButtonText.html(content);
+    }, 200);
+    setTimeout(() => {
+        startButtonText.removeClass('fade');
+    }, 400);
 }
 
 function gameOver() {
+    $('.end-audio')[0].play();
     updateMiddle('Game Over!<br/>Try Again?<br/>(Enter)')
     //check for new high score
     if (checkScore(currentScore)) {
@@ -215,11 +224,13 @@ function playRound() {
     simonTurn();
 }
 
-function startGame() {
+async function startGame() {
     canStart = false;
+    $('.start-audio')[0].play();
     //reset the sequence for a new game
     simonSequence.length = 0;
     updateScore();
+    await timeout(lightTimer);
     playRound();
 }
 
@@ -309,10 +320,17 @@ function constructModals() {
         modalOpen = true;
     });
 }
-function createAudio() {
+
+function createAudio(cssClass, sound) {
+    $(`<audio class="${cssClass}-audio"></audio`).append(`<source src="audio/${sound}" type="audio/mpeg"></source>`).appendTo('body');
+}
+
+function constructAudios() {
     gameButtons.forEach(gameButton => {
-        $(`<audio class="${gameButton.cssClass}-audio"></audio`).append(`<source src="audio/${gameButton.sound}" type="audio/mpeg"></source>`).appendTo('body');
+        createAudio(gameButton.cssClass, gameButton.sound)
     });
+    createAudio('start', 'start.mp3');
+    createAudio('end', 'end.mp3');
 }
 
 $(document).ready(() => {
@@ -320,5 +338,5 @@ $(document).ready(() => {
     constructModals();
     loadHighScores();
     updateHighScoreBoard();
-    createAudio();
+    constructAudios();
 });

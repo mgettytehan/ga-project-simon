@@ -2,7 +2,7 @@
 
 ## Important Links
 
-Find live project at mgettytehan.github.io/ga-project-simon(https://mgettytehan.github.io/ga-project-simon/)
+Find live project at [mgettytehan.github.io/ga-project-simon](https://mgettytehan.github.io/ga-project-simon/)
 
 [Project boards on Github](https://github.com/mgettytehan/ga-project-simon/projects/1)
 

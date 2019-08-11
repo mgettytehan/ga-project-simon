@@ -149,6 +149,21 @@ input[type=text] {
 .warning-text {
     color: rgb(110, 184, 185);
 }
+.fade {
+    animation: fading 400ms;
+}
 .hidden {
     display: none;
+}
+
+@keyframes fading {
+    0%{
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
