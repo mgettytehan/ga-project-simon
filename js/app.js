@@ -255,6 +255,20 @@ function addButtonListeners() {
             startGame();
         }
     });
+    $('.game-button').on('click', function() {
+        if (!modalOpen && canPlay) {
+            playerLight(
+                gameButtons.map(
+                    button => button.cssClass
+                ).indexOf($(this).attr('id'))
+            );
+        }
+    });
+    $('.start-button').on('click', function() {
+        if (!modalOpen && canStart) {
+            startGame();
+        }
+    });
     
 }
 //
