@@ -134,7 +134,6 @@ function gameOver() {
     if (checkScore(currentScore)) {
         showNameScreen();
     }
-    showNameScreen();
     canStart = true;
 }
 
@@ -256,6 +255,7 @@ function addButtonListeners() {
             startGame();
         }
     });
+    
 }
 //
 //construct modals for page

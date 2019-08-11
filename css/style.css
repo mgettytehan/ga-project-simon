@@ -25,10 +25,12 @@ header {
 button {
     font-size: 1em;
     font-family: 'Open Sans', sans-serif;
+    text-transform: lowercase;
     border-radius: 5px;
     padding: 10px;
     border: 3px solid grey;
-    background-color: rgba(110, 184, 185, 0.5);
+    background-color: rgb(110, 184, 185);
+    color: white;
 }
 input {
     font-size: 1em;
@@ -141,6 +143,9 @@ input[type=text] {
 }
 .player-name {
     text-align: center;
+}
+.warning-text {
+    color: rgb(110, 184, 185);
 }
 .hidden {
     display: none;
