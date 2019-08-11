@@ -186,6 +186,7 @@ input[type=radio] {
     }
 }
 
+
 @media (max-height: 630px) {
     body {
         font-size: 14px;
