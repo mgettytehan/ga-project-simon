@@ -18,6 +18,8 @@ All image assets by me. Please do not use elsewhere.
 
 ## Sound effects
 
+All sound effects have been volume-adjusted.
+
 [Sound effects obtained from zapsplat.com](https://www.zapsplat.com)
 + Science fiction beam up, teleportation, almost cartoon-like (modified)
 + App, game or system interface alert tone 22
@@ -34,12 +36,12 @@ Modifications: Send up and tempo changed, trimmed.
 
 ## Wireframes and Diagrams
 
-# Diagram of game flow
+### Diagram of game flow
 ![diagram of game flow](https://github.com/mgettytehan/ga-project-simon/blob/master/wireframes/game_flow.JPG)
 
-# Main Page Wireframe
+### Main Page Wireframe
 ![wireframe of main page](https://github.com/mgettytehan/ga-project-simon/blob/master/wireframes/wireframe_main.JPG)
 
-# Modal Wireframe
+### Modal Wireframe
 
 ![wireframe of modal](https://github.com/mgettytehan/ga-project-simon/blob/master/wireframes/wireframe_modal.JPG)
