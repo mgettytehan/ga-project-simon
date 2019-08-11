@@ -97,6 +97,9 @@ function addScore(name) {
     newScore.name = name;
     newScore.score = currentScore;
     highScores.push(newScore);
+    highScores.sort((a, b) => {
+        a.score < b.score ? 1 : -1;
+    });
     saveHighScores();
     updateHighScoreBoard();
 }
@@ -238,7 +241,6 @@ async function startGame() {
     $('.start-audio')[0].play();
     //reset the sequence for a new game and get speed
     lightTimer = speeds[$('input[name=game-speed]:checked').val()]
-    console.log(lightTimer);
     simonSequence.length = 0;
     updateScore();
     await timeout(lightTimer);
