@@ -1,16 +1,16 @@
 //preloaded fake high scores
 const preLoadedScores = [
     {
-        name: 'CHAMP',
-        score: 40
-    },
-    {
-        name: 'BEN',
-        score: 30
-    },
-    {
         name: 'JOJO',
+        score: 25
+    },
+    {
+        name: 'BENTON',
         score: 20
+    },
+    {
+        name: 'RAY',
+        score: 15
     },
     {
         name: 'YUKI',
@@ -299,11 +299,12 @@ function constructModals() {
     $('body').append(
         createModal('instructions', $('<div></div>').append(
             $('<h2>Instructions</h2>'),
-            $('<p>Press Enter to start a new game.</p>'),
-            $('<p>Use the Q W A S keys to play.</p>'),
-            $('<p>Simon will start his turn and light up a sequence of UFOs. He will start with one UFO.</p>'),
+            $('<p>Welcome to UFO Simon! The aim is to abduct the animals in the same order as Simon.</p>'),
+            $('<p>You can use your keyboard or your mouse to play the game. The Q W A S keys control the main game buttons. Press Enter or click in the middle to start a new game.</p>'),
+            $('<p>When it\'s Simon\'s turn, Simon will move the UFOs one by one.</p>'),
             $('<p>Now it\'s your turn! Press the UFOs in the same order as Simon.</p>'),
-            $('<p>Simon will add one more UFO to the sequence each turn. Try to get the highest score possible!</p>')
+            $('<p>Simon will add one more UFO each turn. Try to get the highest score possible!</p>'),
+            $('<p>Your high scores can be saved in the scoreboard. Click the high scores button to see them.</p>')
         )),
         createModal('scoreboard', $('<div></div>').append(
             $('<h2>High Scores</h2>'),
