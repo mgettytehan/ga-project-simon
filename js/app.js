@@ -33,19 +33,19 @@ function loadHighScores() {
 const gameButtons = [
     {
         cssClass: "top-left",
-        sound: "beam2.mp3"
+        sound: "beam1-spacey.mp3"
     },
     {
         cssClass: "top-right",
-        sound: "beam2.mp3"
+        sound: "beam2-zapsplat_beam.mp3"
     },
     {
         cssClass: "bottom-right",
-        sound: "beam2.mp3"
+        sound: "beam3-moog-mod.mp3"
     },
     {
         cssClass: "bottom-left",
-        sound: "beam2.mp3"
+        sound: "beam4-strange-wave.mp3"
     }
 ];
 //track current player score
