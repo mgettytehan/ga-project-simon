@@ -1,6 +1,3 @@
-//
-//high scores
-//
 //preloaded fake high scores
 const preLoadedScores = [
     {
@@ -25,7 +22,6 @@ const preLoadedScores = [
     }
 ];
 let highScores;
-
 //load high scores from template or localStorage when page loads
 function loadHighScores() {
     if (localStorage.highScores) {
@@ -34,7 +30,42 @@ function loadHighScores() {
         highScores = preLoadedScores;
     }
 }
+const gameButtons = [
+    {
+        cssClass: "top-left",
+        sound: "beam2.mp3"
+    },
+    {
+        cssClass: "top-right",
+        sound: "beam2.mp3"
+    },
+    {
+        cssClass: "bottom-right",
+        sound: "beam2.mp3"
+    },
+    {
+        cssClass: "bottom-left",
+        sound: "beam2.mp3"
+    }
+];
+//track current player score
+let currentScore = 0;
+//store Simon's sequence of buttons
+let simonSequence = [];
+//tracks index of Simon's sequence to compare player's latest input to
+let playerIndex = 0;
+//standard for light flashing in ms
+const lightTimer = 600;
+//flag for whether player can initiate game
+let canStart = true;
+//flag for whether player can press game keys
+let canPlay = false;
+//flag for open modal (keys won't respond)
+let modalOpen = false;
 
+//
+//high scores
+//
 //use to save into localStorage when changes are made
 function saveHighScores() {
     localStorage.highScores = JSON.stringify(highScores);
@@ -63,63 +94,28 @@ function addScore(name) {
 
 function showNameScreen() {
     $('.player-name').removeClass('hidden');
+    modalOpen = true;
 }
 
 //
 //game functionality
 //
-const gameButtons = [
-    {
-        cssClass: "top-left",
-        sound: "beam2.mp3"
-    },
-    {
-        cssClass: "top-right",
-        sound: "beam2.mp3"
-    },
-    {
-        cssClass: "bottom-right",
-        sound: "beam2.mp3"
-    },
-    {
-        cssClass: "bottom-left",
-        sound: "beam2.mp3"
-    }
-];
-//track current player score
-let currentScore = 0;
-//store Simon's sequence of buttons
-let simonSequence = [];
-//tracks index of Simon's sequence to compare player's latest input to
-let playerIndex = 0;
-//standard for light flashing in ms
-const lightTimer = 600;
-
 function timeout(timeMs) {
     return new Promise(resolve => setTimeout(resolve,timeMs));
 }
 
-function addStartListener() {
-    $(document).on('keydown', function(evnt) {
-        //tests for enter key
-        if (evnt.which === 13) {
-            startGame();
-        }
-    });
-}
-
 function updateMiddle(content) {
-    $('.start-button-text').text(content);
+    $('.start-button-text').html(content);
 }
 
 //placeholder for console testing
 function gameOver() {
-    console.log('lost');
+    updateMiddle('Game Over!<br/>Try Again?<br/>(Enter)')
     //check for new high score
     if (checkScore(currentScore)) {
         showNameScreen();
     }
-    addStartListener();
+    canStart = true;
 }
 
 function displayScore() {
@@ -128,10 +124,6 @@ function displayScore() {
 
 function updateScore() {
     currentScore = simonSequence.length;
-}
-
-function removeAllListeners() {
-    $(document).off();
 }
 
 //turn on flash class, wait, turn off
@@ -145,13 +137,13 @@ async function flashLight(buttonClass, timeMs) {
 function compareLight(playerLight) {
     console.log(playerLight);
     if (playerLight !== simonSequence[playerIndex]) {
-        removeAllListeners();
+        canPlay = false;
         gameOver();
         return;
     }
     playerIndex++;
     if (playerIndex >= simonSequence.length) {
-        removeAllListeners();
+        canPlay = false;
         updateScore();
         displayScore();
         playRound();
@@ -170,38 +162,11 @@ async function playerLight(lightIndex) {
     compareLight(lightIndex);
 }
 
-function addButtonListeners() {
-    $(document).on('keydown', function(evnt) {
-        let keyPressed = evnt.which;
-        switch (keyPressed) {
-            //q key
-            case 81:
-                playerLight(0);
-                break;
-            //w key
-            case 87:
-                playerLight(1);
-                break;
-            // s key
-            case 83:
-                playerLight(2);
-                break;
-            //a key
-            case 65:
-                playerLight(3);
-                break;
-            default:
-                break;
-        }
-    });
-}
-
 function startPlayerTurn() {
     updateMiddle('Your Turn');
-    addButtonListeners();
+    canPlay = true;
 }
 
-//placeholder for console testing
 async function displaySimonSeq() {
     await timeout(lightTimer);
     for (let simonLight of simonSequence) {
@@ -233,11 +198,46 @@ function playRound() {
 }
 
 function startGame() {
-    removeAllListeners();
+    canStart = false;
+    //reset the sequence for a new game
     simonSequence.length = 0;
+    updateScore();
     playRound();
 }
 
+function addButtonListeners() {
+    $(document).on('keydown', function(evnt) {
+        if (modalOpen) {
+            return;
+        }
+        let keyPressed = evnt.which;
+        if (canPlay) {
+            switch (keyPressed) {
+            //q key
+            case 81:
+                playerLight(0);
+                break;
+            //w key
+            case 87:
+                playerLight(1);
+                break;
+            // s key
+            case 83:
+                playerLight(2);
+                break;
+            //a key
+            case 65:
+                playerLight(3);
+                break;
+            default:
+                break;
+            }
+        }
+        if (canStart && keyPressed === 13) {
+            startGame();
+        }
+    });
+}
 //
 //construct modals for page
 //
@@ -245,6 +245,7 @@ function createModal(divClass, innerContent) {
     return $(`<div class="modal ${divClass} hidden"></div>`).append(innerContent.addClass('modal-inner').append(
         $('<div class="button-container"></div>').append('<button class="close">Close</button>').on('click', function() {
             $(this).parents('.modal').addClass('hidden');
+            modalOpen = false;
         })
     ));
 }
@@ -286,9 +287,11 @@ function constructModals() {
     //add button listeners
     $('.instructions-button').on('click', function() {
         $('.instructions').removeClass('hidden');
+        modalOpen = true;
     });
     $('.score-button').on('click', function() {
         $('.scoreboard').removeClass('hidden');
+        modalOpen = true;
     });
 }
 function createAudio() {
@@ -298,7 +301,7 @@ function createAudio() {
 }
 
 $(document).ready(() => {
-    addStartListener();
+    addButtonListeners();
     constructModals();
     loadHighScores();
     updateHighScoreBoard();
