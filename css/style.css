@@ -126,7 +126,8 @@ input[type=text] {
     background-color: rgba(110, 184, 185, 0.5);
 }
 .modal-inner {
-    background-color: white;
+    background: white url('../images/littlealien.gif') no-repeat right top;
+    background-size: 70px auto;
     border: 3px solid grey;
     margin: 10% auto;
     padding: 15px;

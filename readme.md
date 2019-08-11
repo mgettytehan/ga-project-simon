@@ -13,6 +13,7 @@ All image assets by me. Please do not use elsewhere.
 ## Fonts
 
 [Inside Outside by Chrispy](https://www.dafont.com/insideoutside.font)
+
 [Open Sans by Steve Matteson on Google Fonts](https://fonts.google.com/specimen/Open+Sans)
 
 ## Sound effects
@@ -30,3 +31,6 @@ Modifications: Sped up and tempo changed, trimmed.
 
 [Kastenfrosch, Spacey.mp3](https://freesound.org/people/Kastenfrosch/sounds/162469/)
 Modifications: Send up and tempo changed, trimmed.
+
+## Wireframes
+
