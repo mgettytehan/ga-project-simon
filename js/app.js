@@ -22,14 +22,7 @@ const preLoadedScores = [
     }
 ];
 let highScores;
-//load high scores from template or localStorage when page loads
-function loadHighScores() {
-    if (localStorage.highScores) {
-        highScores = JSON.parse(localStorage.highScores);
-    } else {
-        highScores = preLoadedScores;
-    }
-}
+
 const gameButtons = [
     {
         cssClass: "top-left",
@@ -66,6 +59,15 @@ let modalOpen = false;
 //
 //high scores
 //
+//load high scores from template or localStorage when page loads
+function loadHighScores() {
+    if (localStorage.highScores) {
+        highScores = JSON.parse(localStorage.highScores);
+    } else {
+        highScores = preLoadedScores;
+    }
+}
+
 //use to save into localStorage when changes are made
 function saveHighScores() {
     localStorage.highScores = JSON.stringify(highScores);
@@ -77,6 +79,7 @@ function checkScore(playerScore) {
 
 function updateHighScoreBoard() {
     let scoreContainer = $('.score-container');
+    scoreContainer.html("");
     highScores.forEach(scoreObj => {
         scoreContainer.append(`<div>${scoreObj.name}</div>`, `<div>${scoreObj.score}</div>`);
     });
