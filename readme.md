@@ -32,5 +32,14 @@ Modifications: Sped up and tempo changed, trimmed.
 [Kastenfrosch, Spacey.mp3](https://freesound.org/people/Kastenfrosch/sounds/162469/)
 Modifications: Send up and tempo changed, trimmed.
 
-## Wireframes
+## Wireframes and Diagrams
 
+# Diagram of game flow
+![diagram of game flow](https://github.com/mgettytehan/ga-project-simon/blob/master/wireframes/game_flow.JPG)
+
+# Main Page Wireframe
+![wireframe of main page](https://github.com/mgettytehan/ga-project-simon/blob/master/wireframes/wireframe_main.JPG)
+
+# Modal Wireframe
+
+![wireframe of modal](https://github.com/mgettytehan/ga-project-simon/blob/master/wireframes/wireframe_modal.JPG)
