@@ -93,7 +93,27 @@ function addScore(name) {
 }
 
 function showNameScreen() {
-    $('.player-name').removeClass('hidden');
+    let nameModal = createModal('player-name', $('<div></div>').append(
+        $('<h2>High Score!</h2>'),
+        $('<p>You got a high score! Please enter your name below (1-6 characters).</p>'),
+        $('<div class="form-fields"></div>').append(
+            $('<div class="warning-text"></div>'),
+            $('<input type="text" class="name-field" maxlength="6"></input>'),
+            $('<button>Submit</button>').on('click', function() {
+                let playerName = $(this).parents('.form-fields').children('.name-field').val();
+                if(playerName.length >= 1 && playerName.length <= 6){
+                    addScore(playerName.toUpperCase());
+                    $(this).parents('.modal').remove();
+                } else {
+                    $(this).siblings('.warning-text').text('Please enter 1-6 characters!');
+                }
+            })
+        )
+    )).removeClass('hidden');
+    nameModal.find('.close').on('click', function() {
+        $(this).parents('.modal').remove();
+    });
+    $('body').append(nameModal)
     modalOpen = true;
 }
 
@@ -108,13 +128,13 @@ function updateMiddle(content) {
     $('.start-button-text').html(content);
 }
 
-//placeholder for console testing
 function gameOver() {
     updateMiddle('Game Over!<br/>Try Again?<br/>(Enter)')
     //check for new high score
     if (checkScore(currentScore)) {
         showNameScreen();
     }
+    showNameScreen();
     canStart = true;
 }
 
@@ -135,7 +155,6 @@ async function flashLight(buttonClass, timeMs) {
 }
 
 function compareLight(playerLight) {
-    console.log(playerLight);
     if (playerLight !== simonSequence[playerIndex]) {
         canPlay = false;
         gameOver();
@@ -253,24 +272,6 @@ function createModal(divClass, innerContent) {
 //create all modals for page, all come out hidden
 function constructModals() {
     $('body').append(
-        createModal('player-name', $('<div></div>').append(
-            $('<h2>High Score!</h2>'),
-            $('<p>You got a high score! Please enter your name below (1-6 characters).</p>'),
-            $('<div class="form-fields"></div>').append(
-                $('<div class="warning-text"></div>'),
-                $('<input type="text" class="name-field" maxlength="6"></input>'),
-                $('<button>Submit</button>').on('click', function() {
-                    console.log($(this).parents('.form-fields').children('.name-field'));
-                    let playerName = $(this).parents('.form-fields').children('.name-field').val();
-                    if(playerName.length >= 1 && playerName.length <= 6){
-                        addScore(playerName.toUpperCase());
-                        $(this).parents('.modal').addClass('hidden');
-                    } else {
-                        $(this).siblings('.warning-text').text('Please enter 1-6 characters!');
-                    }
-                })
-            )
-        )),
         createModal('instructions', $('<div></div>').append(
             $('<h2>Instructions</h2>'),
             $('<p>Press Enter to start a new game.</p>'),
