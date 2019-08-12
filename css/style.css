@@ -141,7 +141,7 @@ input[type=radio] {
     background-color: rgba(110, 184, 185, 0.5);
 }
 .modal-inner {
-    background: white url('../images/littlealien.gif') no-repeat right top;
+    background: white url('../images/littlealien.png') no-repeat right top;
     background-size: 70px auto;
     border: 3px solid grey;
     display: inline-block;
