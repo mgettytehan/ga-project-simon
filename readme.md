@@ -1,5 +1,7 @@
 # UFO Simon by mgettytehan
 
+This game was created for Project 1 in General Assembly's Software Engineering Immersive course. The aim was to create a game of Simon using HTML, CSS and JavaScript (including jQuery, which this project utilizes). It is a single page game application.
+
 ## Important Links
 
 Find live project at [mgettytehan.github.io/ga-project-simon](https://mgettytehan.github.io/ga-project-simon/)
