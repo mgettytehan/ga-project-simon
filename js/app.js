@@ -253,6 +253,7 @@ async function startGame() {
     lightTimer = speeds[$('input[name=game-speed]:checked').val()]
     simonSequence.length = 0;
     updateScore();
+    displayScore();
     await timeout(lightTimer);
     playRound();
 }
