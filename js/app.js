@@ -150,7 +150,7 @@ function updateMiddle(content) {
 
 function gameOver() {
     $('.end-audio')[0].play();
-    updateMiddle('Game Over!<br/>Try Again?<br/>(Enter)')
+    updateMiddle('Game Over!<br/>Retry?<br/>')
     //check for new high score
     if (checkScore(currentScore)) {
         showNameScreen();
@@ -175,18 +175,7 @@ async function flashLight(buttonClass, timeMs) {
 }
 
 function compareLight(playerLight) {
-    if (playerLight !== simonSequence[playerIndex]) {
-        canPlay = false;
-        gameOver();
-        return;
-    }
-    playerIndex++;
-    if (playerIndex >= simonSequence.length) {
-        canPlay = false;
-        updateScore();
-        displayScore();
-        playRound();
-    }
+    return playerLight === simonSequence[playerIndex]
 }
 
 function clearLights() {
@@ -195,10 +184,24 @@ function clearLights() {
 
 async function playerLight(lightIndex) {
     clearLights();
+    if (!compareLight(playerLight)) {
+        canPlay = false;
+        // game over after while still allowing last button to be triggered
+        setTimeout(gameOver, lightTimer+100);
+    } else {
+        playerIndex++;
+        if (playerIndex >= simonSequence.length) {
+            canPlay = false;
+            setTimeout(() => {
+                updateScore();
+                displayScore();
+                playRound();
+            }, lightTimer+100);
+        }
+    }
+    //small delay for usability
     await timeout(100);
     flashLight(gameButtons[lightIndex].cssClass, lightTimer);
-    await timeout(lightTimer);
-    compareLight(lightIndex);
 }
 
 function startPlayerTurn() {
