@@ -25,7 +25,7 @@ const preLoadedScores = [
     },
     {
         name: 'YUMI',
-        score: 5
+        score: 1
     }
 ];
 //for loading in from preloaded scores or scores in localStorage
