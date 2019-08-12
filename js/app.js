@@ -61,6 +61,8 @@ let canStart = true;
 let canPlay = false;
 //flag for open modal (keys won't respond)
 let modalOpen = false;
+// for storing  and clearing the player input timeout
+let inputCountdown;
 
 //
 //high scores
@@ -175,7 +177,7 @@ async function flashLight(buttonClass, timeMs) {
 }
 
 function compareLight(playerLight) {
-    return playerLight === simonSequence[playerIndex]
+    return playerLight === simonSequence[playerIndex];
 }
 
 function clearLights() {
@@ -183,8 +185,9 @@ function clearLights() {
 }
 
 async function playerLight(lightIndex) {
+    clearTimeout(inputCountdown);
     clearLights();
-    if (!compareLight(playerLight)) {
+    if (!compareLight(lightIndex)) {
         canPlay = false;
         // game over after while still allowing last button to be triggered
         setTimeout(gameOver, lightTimer+100);
@@ -197,6 +200,8 @@ async function playerLight(lightIndex) {
                 displayScore();
                 playRound();
             }, lightTimer+100);
+        } else {
+            inputCountdown = setTimeout(gameOver, 10000);
         }
     }
     //small delay for usability
@@ -205,6 +210,8 @@ async function playerLight(lightIndex) {
 }
 
 function startPlayerTurn() {
+    //input timeout is 10s
+    inputCountdown = setTimeout(gameOver, 10000);
     updateMiddle('Your Turn');
     canPlay = true;
 }

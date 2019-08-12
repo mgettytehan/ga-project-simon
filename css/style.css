@@ -161,6 +161,9 @@ input[type=radio] {
     grid-gap: 10px;
     justify-content: space-evenly;
 }
+.instructions > .modal-inner {
+    text-align: left;
+}
 .player-name {
     text-align: center;
 }
