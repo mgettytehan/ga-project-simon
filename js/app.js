@@ -188,6 +188,7 @@ function compareLight(playerLight) {
 
 function clearLights() {
     $('.flash').removeClass('flash');
+    $('audio').trigger('load');
 }
 
 async function playerLight(lightIndex) {
