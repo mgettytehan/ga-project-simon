@@ -1,10 +1,29 @@
 # UFO Simon by mgettytehan
 
-This game was created for Project 1 in General Assembly's Software Engineering Immersive course. The aim was to create a game of Simon using HTML, CSS and JavaScript (including jQuery, which this project utilizes). It is a single page game application.
+UFO Simon was created for Project 1 in General Assembly's Software Engineering Immersive course. The aim was to create a game of Simon using HTML, CSS and JavaScript (including jQuery, which this project utilizes). It is a single page game application.
+
+## Features
+
+- four animated UFO buttons
+- unique sounds for each button when pressed
+- instructions modal
+- play with mouse or keyboard keys
+- timeout if player is too slow to push a button (10 seconds)
+- no sequence length limit - keep playing until incorrect/timeout
+- two game speeds
+- local high score board
+
+## Technologies
+
+- HTML5
+- CSS3
+- JavaScript
+- jQuery
+- Photoshop (for creating gifs)
 
 ## Important Links
 
-Find live project at [mgettytehan.github.io/ga-project-simon](https://mgettytehan.github.io/ga-project-simon/)
+Find live project on [GitHub pages](https://mgettytehan.github.io/ga-project-simon/)
 
 [Project boards on Github](https://github.com/mgettytehan/ga-project-simon/projects/1)
 
@@ -38,12 +57,4 @@ Modifications: Send up and tempo changed, trimmed.
 
 ## Wireframes and Diagrams
 
-### Diagram of game flow
-![diagram of game flow](https://github.com/mgettytehan/ga-project-simon/blob/master/wireframes/game_flow.JPG)
-
-### Main Page Wireframe
-![wireframe of main page](https://github.com/mgettytehan/ga-project-simon/blob/master/wireframes/wireframe_main.JPG)
-
-### Modal Wireframe
-
-![wireframe of modal](https://github.com/mgettytehan/ga-project-simon/blob/master/wireframes/wireframe_modal.JPG)
+Wireframes and initial planning can be found in [wireframes folder](https://github.com/mgettytehan/ga-project-simon/tree/master/wireframes).
