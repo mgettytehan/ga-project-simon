@@ -126,6 +126,7 @@ function showNameScreen() {
     )).removeClass('hidden');
     nameModal.find('.close').on('click', function() {
         $(this).parents('.modal').remove();
+        modalOpen = false;
     });
     $('body').append(nameModal)
     modalOpen = true;
