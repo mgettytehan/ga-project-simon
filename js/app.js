@@ -138,6 +138,10 @@ function timeout(timeMs) {
     return new Promise(resolve => setTimeout(resolve,timeMs));
 }
 
+function disableRadios(flag) {
+    $('input[name="game-speed"]').attr('disabled', flag);
+}
+
 function updateMiddle(content) {
     //old text fades out and new text fades in
     let startButtonText = $('.start-button-text');
@@ -152,7 +156,8 @@ function updateMiddle(content) {
 
 function gameOver() {
     $('.end-audio')[0].play();
-    updateMiddle('Game Over!<br/>Retry?<br/>')
+    updateMiddle('Game Over!<br/>Retry?<br/>');
+    disableRadios(false);
     //check for new high score
     if (checkScore(currentScore)) {
         showNameScreen();
@@ -248,6 +253,7 @@ function playRound() {
 
 async function startGame() {
     canStart = false;
+    disableRadios(true);
     $('.start-audio')[0].play();
     //reset the sequence for a new game and get speed
     lightTimer = speeds[$('input[name=game-speed]:checked').val()]

@@ -32,6 +32,7 @@ button, .speed-controls > * {
     font-family: 'Open Sans', sans-serif;
     text-transform: lowercase;
     border-radius: 5px;
+    margin: 5px;
     padding: 10px;
     border: 3px solid grey;
     background-color: rgba(110, 184, 185, 0.75);
