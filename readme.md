@@ -20,6 +20,7 @@ UFO Simon was created for Project 1 in General Assembly's Software Engineering I
 - JavaScript
 - jQuery
 - Photoshop (for creating gifs)
+- Audacity (for adjusting sound files)
 
 ## Important Links
 
