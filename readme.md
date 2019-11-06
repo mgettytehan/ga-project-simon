@@ -13,6 +13,12 @@ UFO Simon was created for Project 1 in General Assembly's Software Engineering I
 - two game speeds
 - local high score board
 
+## Important Links
+
+Find live project on [GitHub pages](https://mgettytehan.github.io/ga-project-simon/)
+
+[Project boards on Github](https://github.com/mgettytehan/ga-project-simon/projects/1)
+
 ## Technologies
 
 - HTML5
@@ -21,12 +27,6 @@ UFO Simon was created for Project 1 in General Assembly's Software Engineering I
 - jQuery
 - Photoshop (for creating gifs)
 - Audacity (for adjusting sound files)
-
-## Important Links
-
-Find live project on [GitHub pages](https://mgettytehan.github.io/ga-project-simon/)
-
-[Project boards on Github](https://github.com/mgettytehan/ga-project-simon/projects/1)
 
 ## Images
 
